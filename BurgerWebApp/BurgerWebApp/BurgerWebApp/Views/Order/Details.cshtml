@@ -1,0 +1,38 @@
+﻿@model CartViewModel
+<h1 class="title">Your Order Details</h1>
+<div class="order-details">
+
+@{
+    for(int i = 0; i< Model.BurgerOrders.Count; i++){
+    <div class="card">
+           <div class="product-card h-100">
+             <img  src="@ViewBag.Burgers[i].Image" class="card-img-top" alt="...">
+                <div class="card-body p-4">
+                   <div class="text-center">
+                      <h5 class="card-title">@ViewBag.Burgers[i].Name</h5>
+                         <p class="card-text">Price: @ViewBag.Burgers[i].Price.ToString("C", CultureInfo.CreateSpecificCulture("mk-MK")) x @Model.BurgerOrders[i].Quantity</p> 
+                        
+                   </div>  
+                </div>
+           </div>
+    </div>
+}
+}
+
+@{
+    for(int i = 0; i< Model.Extras.Count; i++){
+    <div class="card">
+           <div class="product-card h-100">
+             <img  src="@ViewBag.Extras[i].Image" class="card-img-top" alt="...">
+                <div class="card-body p-4">
+                   <div class="text-center">
+                      <h5 class="card-title">@ViewBag.Extras[i].Name</h5>
+                         <p class="card-text">Price: @ViewBag.Extras[i].SizeId.Price.ToString("C", CultureInfo.CreateSpecificCulture("mk-MK")) x @Model.Extras[i].Quantity</p> 
+                        
+                   </div>  
+                </div>
+           </div>
+    </div>
+}
+}
+</div>

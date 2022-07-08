@@ -1,0 +1,39 @@
+﻿@model BurgerViewModel
+
+<div class="card" style="width: 20rem;">
+      <img src="@Model.Image" class="card-img-top" alt="...">
+         <div class="card-body">
+            <h3 class="card-title">@Model.Name</h3>
+                <p class="card-text">Price: @Model.Price.ToString("C", CultureInfo.CreateSpecificCulture("mk-MK"))</p>
+                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                         Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                         when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                         It has survived not only five centuries, but also the leap into electronic typesetting, 
+                         remaining essentially unchanged.</p>
+        @{
+            if(@Model.IsVegan)
+            {
+                <p>Vegan</p>
+            }else if (@Model.IsVegetarian)
+            {
+                <p>Vegetarian</p>
+            }
+            else
+            {
+                <p>Contains Meat</p>
+            }
+        }
+        @{
+            if (@Model.HasFries)
+            {
+                <p>Comes with Fries</p>
+            }
+            else
+            {
+                <p>Doesn't come with fries</p>
+            }
+        }
+                     <a asp-action="Index" asp-controller="Burger" class="btn btn-primary">Go Back</a>
+                
+         </div>
+    </div>   

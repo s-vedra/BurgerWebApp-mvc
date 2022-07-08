@@ -1,0 +1,8 @@
+﻿@model List<BurgerViewModel>
+
+
+<div class="cards">
+@foreach(var item in Model){
+    <partial name="_PartialViewBurgerDetails" model="@item"></partial>
+}
+</div>

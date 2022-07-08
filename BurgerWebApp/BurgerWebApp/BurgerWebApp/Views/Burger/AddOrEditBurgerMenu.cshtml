@@ -1,0 +1,19 @@
+﻿@model BurgerViewModel
+
+<form asp-action="SaveBurgerMenu" asp-controller="Burger" method="post">
+     <input type="hidden" asp-for="Id" />
+    <label asp-for="Name" class="form-label"></label>
+    <input asp-for="Name" class="form-control" />
+    <label asp-for="Price" class="form-label"></label>
+    <input asp-for="Price" class="form-control" />
+    <label asp-for="IsVegan" class="form-label"></label>
+    <input type="checkbox" value="true" asp-for="IsVegan"/>
+    <label asp-for="IsVegetarian" class="form-label"></label>
+    <input type="checkbox" value="true" asp-for="IsVegetarian"/>
+    <label asp-for="HasFries" class="form-label"></label>
+    <input type="checkbox" value="true" asp-for="HasFries"/>
+    <br />
+    <label asp-for="Image" class="form-label"></label>
+    <input asp-for="Image" class="form-control" />
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

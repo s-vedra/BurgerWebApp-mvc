@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BurgerWebApp.Business\BurgerWebApp.Business.csproj" />
+    <ProjectReference Include="..\BurgerWebApp.DataAccess\BurgerWebApp.DataAccess.csproj" />
+    <ProjectReference Include="..\BurgerWebApp.ViewModels\BurgerWebApp.ViewModels.csproj" />
+    <ProjectReference Include="..\DomainModels\BurgerWebApp.DomainModels.csproj" />
+  </ItemGroup>
+
+</Project>

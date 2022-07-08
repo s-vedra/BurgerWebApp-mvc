@@ -1,0 +1,14 @@
+﻿@model List<BurgerViewModel>
+
+<div class="index-page">
+   
+<a asp-area="" asp-controller="Burger" asp-action="AddOrEditBurgerMenu" class="btn btn-primary">Add New Burgers</a>
+                       
+ <div class="cards">
+ @foreach(BurgerViewModel burger in Model)
+ {
+      <partial name="_PartialViewBurgerDetails" model="@burger"></partial>
+ }
+ </div>
+
+ </div>

@@ -1,0 +1,122 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+.card {
+    width: 15em;
+}
+
+.cards {
+    display: flex;
+    align-content: stretch;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 2em;
+    justify-content: center;
+}
+
+.index-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2em;
+}
+.checkbox-input {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-around;
+    margin-top:1em;
+}
+.form-burgers {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1em;
+    margin-bottom: 10em;
+}
+img{
+    height:20em;
+}
+.form-extras {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10em;
+    justify-content: center;
+}
+.form-cart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.quantity-form {
+    margin-top:1em;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.location-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    gap:2em;
+}
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: center;
+    gap:1em;
+}
+.order-details {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap:2em;
+}
+.title {
+    display: flex;
+    justify-content: center;
+    margin-bottom:1em;
+}
+.home-page {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 2em;
+}
+.time-inputs {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-top:1em;
+    width:10em;
+
+}
+.form-search {
+    display: flex;
+    justify-content: flex-end;
+}
+.form-floating {
+    display: flex;
+    gap: 0.2em;
+}

@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<BurgerViewModel>
+<h1>Our Offers:</h1>
+<div class="home-page">
+
+    
+    @foreach (var item in Model)
+    {
+       <div class="card">
+             <div class="product-card h-100">
+              <img  src="@item.Image" class="card-img-top" alt="...">
+                <div class="card-body p-4">
+                  <div class="text-center">
+                    <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text">Price: @item.Price.ToString("C", CultureInfo.CreateSpecificCulture("mk-MK"))</p>
+                  </div>  
+                </div>
+             </div>
+       </div>  
+    }
+</div>
+    <h1 class="mt-3">Paired with some Extra items</h1>
+    <div class="home-page">
+    @foreach (var item in @ViewBag.Exras)
+    {
+        <div class="card">
+            <div class="product-card h-100">
+                 <img  src="@item.Image" class="card-img-top" alt="...">
+                       <div class="card-body p-4">
+                             <div class="text-center">
+                                 <h5 class="card-title">@item.Name</h5>
+                                      <p class="card-text">Price: @item.SizeId.Price.ToString("C", CultureInfo.CreateSpecificCulture("mk-MK"))</p>
+                             </div>  
+                       </div>
+            </div>
+        </div> 
+    }
+    </div>
+
