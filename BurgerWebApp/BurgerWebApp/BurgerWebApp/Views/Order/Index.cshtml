@@ -15,6 +15,7 @@
       <th scope="col">Location</th>
       <th scope="col">Order Details</th>
       <th scope="col">Full Price</th>
+      <th scope="col">Delivery Status:</th>
       <th scope="col">#</th>
     </tr>
   </thead>
@@ -29,7 +30,22 @@
                
                 
         <td>@item.TotalPrice.ToString("C", CultureInfo.CreateSpecificCulture("mk-MK"))</td>
-       <td><a asp-action="DeleteOrder" asp-controller="Order" asp-route-id="@item.Id">Delete</a></td>          
+     
+                @{
+                    if (item.IsDelivered)
+                    {
+                        <td>Delivered</td>
+                    }
+                    else
+                    {
+                        <td>Not Delivered</td>
+                    }
+                }
+       <td><a asp-action="DeleteOrder" asp-controller="Order" asp-route-id="@item.Id">Delete</a></td> 
+      
+            <td><a asp-action="ConfirmDelivery" asp-controller="Order" asp-route-id="@item.Id">Confirm Delivery</a></td>
+     
+      
     </tr>
   </tbody>
 }

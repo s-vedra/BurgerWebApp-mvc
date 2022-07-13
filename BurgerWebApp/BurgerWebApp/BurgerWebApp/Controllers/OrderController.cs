@@ -89,6 +89,13 @@ namespace BurgerWebApp.Controllers
             _cartService.Delete(order.CartId);
             return RedirectToAction("Index", "Order");
         }
+        public IActionResult ConfirmDelivery(int id)
+        {
+            OrderViewModel order = _orderService.GetOrder(id);
+            _orderService.Update(order);
+            
+            return RedirectToAction("Index", "Order");
+        }
     }
 
 }

@@ -10,5 +10,6 @@ namespace BurgerWebApp.Business.Abstraction
         void Delete(int id);
         void Add(OrderViewModel viewModel);
         bool ValidateInputs(OrderViewModel viewModel);
+        void Update(OrderViewModel viewModel);
     }
 }

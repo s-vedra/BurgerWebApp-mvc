@@ -20,7 +20,9 @@ namespace BurgerWebApp.Business.Mappers
                 Address = order.Address,
                 CartId = order.CartId,
                 Location = order.Location.ToViewModel(),
-                TotalPrice = order.TotalPrice
+                TotalPrice = order.TotalPrice,
+                IsDelivered = order.IsDelivered
+                
             };
         }
     }

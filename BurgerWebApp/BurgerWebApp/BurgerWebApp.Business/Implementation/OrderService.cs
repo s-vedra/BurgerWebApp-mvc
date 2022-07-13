@@ -55,6 +55,21 @@ namespace BurgerWebApp.Business.Implementation
                 return order.ToViewModel();
             }
         }
+
+        public void Update(OrderViewModel viewModel)
+        {
+            Order order = new Order(
+                viewModel.Name, 
+                viewModel.LastName, 
+                viewModel.Address, 
+                true, 
+                viewModel.Location.Id, 
+                viewModel.CartId, 
+                viewModel.TotalPrice) 
+                { Id = viewModel.Id};
+            _orderRepository.Update(order);
+        }
+
         public bool ValidateInputs(OrderViewModel viewModel)
         {
             if (string.IsNullOrEmpty(viewModel.Name) || string.IsNullOrEmpty(viewModel.LastName) || string.IsNullOrEmpty(viewModel.Address) || viewModel.Location.Id == 0)
