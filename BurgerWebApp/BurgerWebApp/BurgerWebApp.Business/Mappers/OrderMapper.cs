@@ -18,8 +18,8 @@ namespace BurgerWebApp.Business.Mappers
                 Name = order.Name,
                 LastName = order.LastName,
                 Address = order.Address,
-                LocationId = order.LocationId,
                 CartId = order.CartId,
+                Location = order.Location.ToViewModel(),
                 TotalPrice = order.TotalPrice
             };
         }

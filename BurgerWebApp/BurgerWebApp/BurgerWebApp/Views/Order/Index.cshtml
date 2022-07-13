@@ -24,12 +24,7 @@
     <tr>
       <td>@item.Name @item.LastName</td>
       <td>@item.Address</td>
-                    @{
-                    List <LocationViewModel> locations = ViewBag.Locations;
-                    LocationViewModel location = locations.FirstOrDefault(x => x.Id == item.LocationId);
-                    <td><a asp-action="Details" asp-controller="Location" asp-route-id="@location.Id">@location.Name</a></td>
-                    }
-      
+                    <td><a asp-action="Details" asp-controller="Location" asp-route-id="@item.Location.Id">@item.Location.Name</a></td>
       <td><a asp-action="CreateCartViewCart" asp-controller="Order" asp-route-id="@item.CartId">Order Details</a></td>
                
                 

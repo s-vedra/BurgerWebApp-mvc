@@ -12,10 +12,12 @@ namespace BurgerWebApp.Business.Implementation
     {
         private readonly IRepository<Order> _orderRepository;
         private readonly ICartService _cartService;
-        public OrderService(IRepository<Order> orderRepository, ICartService cartService)
+        private readonly IRepository<Location> _locationRepository;
+        public OrderService(IRepository<Order> orderRepository, ICartService cartService, IRepository<Location> locationRepository)
         {
             _orderRepository = orderRepository;
             _cartService = cartService;
+            _locationRepository = locationRepository;
         }
         public void Add(OrderViewModel viewModel)
         {
@@ -25,7 +27,7 @@ namespace BurgerWebApp.Business.Implementation
             order.CartId = viewModel.CartId;
             order.Address = viewModel.Address;
             order.TotalPrice = _cartService.GetCart(viewModel.CartId).FullPrice;
-            order.LocationId = viewModel.LocationId;
+            order.Location = _locationRepository.GetEntity(viewModel.Location.Id);
             order.IsDelivered = viewModel.IsDelivered;
           _orderRepository.Add(order);
         }
@@ -55,7 +57,7 @@ namespace BurgerWebApp.Business.Implementation
         }
         public bool ValidateInputs(OrderViewModel viewModel)
         {
-            if (string.IsNullOrEmpty(viewModel.Name) || string.IsNullOrEmpty(viewModel.LastName) || string.IsNullOrEmpty(viewModel.Address) || viewModel.LocationId == 0)
+            if (string.IsNullOrEmpty(viewModel.Name) || string.IsNullOrEmpty(viewModel.LastName) || string.IsNullOrEmpty(viewModel.Address) || viewModel.Location.Id == 0)
             {
                 return false;
             }
