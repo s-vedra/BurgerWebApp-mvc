@@ -17,7 +17,7 @@ namespace BurgerWebApp.Business.Mappers
                 Id = extra.Id,
                 Image = extra.Image,
                 Name = extra.Name,
-                SizeId = extra.SizeId.ToViewModel()
+                Size = extra.Size.ToViewModel()
             };
         }
     }

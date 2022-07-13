@@ -57,7 +57,7 @@
                                 <div class="card-body p-4">
                                   <div class="text-center">
                                     <h5 class="card-title">@ViewBag.ExtraViewModels[i].Name</h5>
-                                        <p class="card-text">Price: @ViewBag.ExtraViewModels[i].SizeId.Price.ToString("C", CultureInfo.CreateSpecificCulture("mk-MK"))</p>
+                                        <p class="card-text">Price: @ViewBag.ExtraViewModels[i].Size.Price.ToString("C", CultureInfo.CreateSpecificCulture("mk-MK"))</p>
                                         <div class="checkbox-input">
                                             <label asp-for="@Model.Extras[i].Selected" class="form-check-label">Add To Cart</label>
                                             <input type="checkbox" asp-for="@Model.Extras[i].Selected" value="true" class="form-check-input" />

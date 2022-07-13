@@ -16,7 +16,7 @@ namespace BurgerWebApp.ViewModels
         public string Address { get; set; }
         public bool IsDelivered { get; set; }
         public int CartId { get; set; }
-        public int Location { get; set; }
+        public int LocationId { get; set; }
         public decimal TotalPrice { get; set; }
     }
 }

@@ -1,45 +1,47 @@
 ﻿using BurgerWebApp.DataAccess.Abstraction;
 using BurgerWebApp.DomainModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace BurgerWebApp.DataAccess.Implementation
 {
     public class ExtraItemsRepository : IRepository<Extra>
     {
+        private readonly BurgerAppDbContext _dbContext;
+
+        public ExtraItemsRepository(BurgerAppDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         public void Add(Extra entity)
         {
-            StorageDb.ExtraItems.Add(entity);
+            _dbContext.Extras.Add(entity);
+            _dbContext.SaveChanges();
         }
 
         public void Delete(Extra entity)
         {
-            StorageDb.ExtraItems.Remove(entity);
+            _dbContext.Extras.Remove(entity);
+            _dbContext.SaveChanges();
         }
 
         public List<Extra> GetAll()
         {
-            return StorageDb.ExtraItems;
+            return _dbContext.Extras.Include(x => x.Size).ToList();
         }
 
         public Extra GetEntity(int? id)
         {
-            return StorageDb.ExtraItems.SingleOrDefault(order => order.Id == id);
+            return _dbContext.Extras.Include(x => x.Size).SingleOrDefault(order => order.Id == id);
         }
-        public int RandomId()
-        {
-            return IdGenerator.GenerateId();
-        }
+
         public void Update(Extra entity)
         {
             var item = GetEntity(entity.Id);
             if (item != null)
             {
-                int index = StorageDb.ExtraItems.IndexOf(item);
-                StorageDb.ExtraItems[index] = entity;
+                _dbContext.Entry(item).CurrentValues.SetValues(entity);
+            _dbContext.SaveChanges();
             }
         }
     }

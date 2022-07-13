@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace BurgerWebApp.DomainModels
+﻿namespace BurgerWebApp.DomainModels
 {
     public class Burger
     {
@@ -15,9 +13,9 @@ namespace BurgerWebApp.DomainModels
         {
 
         }
-        public Burger(int id, string name, decimal price, bool isVegetarian, bool hasFries, string image, bool isVegan)
+        public Burger(string name, decimal price, bool isVegetarian, bool hasFries, string image, bool isVegan)
         {
-            Id = id;
+
             Name = name;
             Price = price;
             IsVegetarian = isVegetarian;

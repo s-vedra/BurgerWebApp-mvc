@@ -20,13 +20,12 @@ namespace BurgerWebApp.Business.Implementation
         public void Add(OrderViewModel viewModel)
         {
             Order order = new Order();
-            order.Id = _orderRepository.RandomId();
             order.Name = viewModel.Name;
             order.LastName = viewModel.LastName;
             order.CartId = viewModel.CartId;
             order.Address = viewModel.Address;
-            order.TotalPrice = _cartService.GetPrice(viewModel.CartId);
-            order.Location = viewModel.Location;
+            order.TotalPrice = _cartService.GetCart(viewModel.CartId).FullPrice;
+            order.LocationId = viewModel.LocationId;
             order.IsDelivered = viewModel.IsDelivered;
           _orderRepository.Add(order);
         }
@@ -56,7 +55,7 @@ namespace BurgerWebApp.Business.Implementation
         }
         public bool ValidateInputs(OrderViewModel viewModel)
         {
-            if (string.IsNullOrEmpty(viewModel.Name) || string.IsNullOrEmpty(viewModel.LastName) || string.IsNullOrEmpty(viewModel.Address) || viewModel.Location == 0)
+            if (string.IsNullOrEmpty(viewModel.Name) || string.IsNullOrEmpty(viewModel.LastName) || string.IsNullOrEmpty(viewModel.Address) || viewModel.LocationId == 0)
             {
                 return false;
             }

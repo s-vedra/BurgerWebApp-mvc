@@ -1,14 +1,8 @@
 ﻿using BurgerWebApp.Business.Abstraction;
 using BurgerWebApp.Business.Mappers;
-using BurgerWebApp.DataAccess;
 using BurgerWebApp.DataAccess.Abstraction;
 using BurgerWebApp.DomainModels;
 using BurgerWebApp.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BurgerWebApp.Business.Implementation
 {
@@ -30,26 +24,26 @@ namespace BurgerWebApp.Business.Implementation
             List<ExtrasOrder> extras = new List<ExtrasOrder>();
             foreach (var item in GetBurgerOrders(burger))
             {
-                burgers.Add(new BurgerOrder(item.Id, item.BurgerId, item.Quantity, item.Selected));
+                burgers.Add(new BurgerOrder(item.BurgerId, item.Quantity, item.Selected));
             }
             foreach (var item in GetExtraOrders(burger))
             {
-                extras.Add(new ExtrasOrder(item.Id, item.ExtraId, item.Quantity, item.Selected));
+                extras.Add(new ExtrasOrder(item.ExtraId, item.Quantity, item.Selected));
             }
-            Cart cart = new Cart(_cartRepository.RandomId(), burgers, extras);
+            Cart cart = new Cart( burgers, extras);
             _cartRepository.Add(cart);
             return cart.Id;
         }
 
         public void Delete(int id)
         {
-           Cart cart = _cartRepository.GetEntity(id);
-           _cartRepository.Delete(cart);
+            Cart cart = _cartRepository.GetEntity(id);
+            _cartRepository.Delete(cart);
         }
 
         public List<CartViewModel> GetAllCarts()
         {
-           List<CartViewModel> carts = _cartRepository.GetAll().Select(cart => cart.ToViewModel()).ToList();
+            List<CartViewModel> carts = _cartRepository.GetAll().Select(cart => cart.ToViewModel()).ToList();
             if (carts.Count != 0)
             {
                 return carts;
@@ -62,7 +56,7 @@ namespace BurgerWebApp.Business.Implementation
 
         public List<BurgerOrderViewModel> GetBurgerOrders(CartViewModel cart)
         {
-          return  cart.BurgerOrders.Where(b => b.Selected).ToList();
+            return cart.BurgerOrders.Where(b => b.Selected).ToList();
         }
 
         public List<BurgerViewModel> GetBurgers(CartViewModel viewModel)
@@ -100,23 +94,9 @@ namespace BurgerWebApp.Business.Implementation
 
         public List<ExtrasOrderViewModel> GetExtraOrders(CartViewModel cart)
         {
-            return cart.Extras.Where(b => b.Selected).ToList();
+            return cart.Extras.Where(e => e.Selected).ToList();
         }
 
-        public decimal GetPrice(int id)
-        {
-            Cart cart = _cartRepository.GetEntity(id);
-            List<decimal> price = new List<decimal>();
-            foreach (BurgerOrder order in cart.BurgerOrders)
-            {
-              price.Add(_burgerService.GetBurger(order.BurgerId).Price * order.Quantity);
-            }
-            foreach (ExtrasOrder extraOrder in cart.Extras)
-            {
-              price.Add(_extraService.GetExtraItem(extraOrder.ExtraId).SizeId.Price * extraOrder.Quantity);
-            }
-            return price.Sum();
-        }
         public bool ValidateInputChecks(CartViewModel viewModel)
         {
             if (viewModel.BurgerOrders.Where(b => b.Selected).Count() == 0)

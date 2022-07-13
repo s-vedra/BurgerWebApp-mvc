@@ -10,15 +10,15 @@ namespace BurgerWebApp.Business.Mappers
 {
     public static class ExtraOrderMapper
     {
-        public static ExtrasOrderViewModel ToViewModel(this ExtrasOrder extraorder)
+        public static ExtrasOrderViewModel ToViewModel(this ExtrasOrder extraOrder)
         {
             return new ExtrasOrderViewModel
             {
-                Id = extraorder.Id,
-                ExtraId = extraorder.ExtraId,
-                Selected = extraorder.Selected,
-                Quantity = extraorder.Quantity,
-                FullPrice = extraorder.FullPrice
+                Id = extraOrder.Id,
+                ExtraId = extraOrder.ExtraId,
+                Selected = extraOrder.Selected,
+                Quantity = extraOrder.Quantity,
+                CartId = extraOrder.CartId
             };
         }
     }

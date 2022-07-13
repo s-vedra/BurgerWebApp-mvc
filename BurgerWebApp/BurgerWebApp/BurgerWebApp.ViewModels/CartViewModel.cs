@@ -11,5 +11,6 @@ namespace BurgerWebApp.ViewModels
         public int Id { get; set; }
         public List<BurgerOrderViewModel> BurgerOrders { get; set; }
         public List<ExtrasOrderViewModel> Extras { get; set; }
+        public decimal FullPrice { get; set; }
     }
 }

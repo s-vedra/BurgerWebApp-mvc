@@ -16,9 +16,9 @@ namespace BurgerWebApp.DomainModels
 
         }
 
-        public Location(int? id, string name, string address, DateTime opensAt, DateTime closesAt)
+        public Location(string name, string address, DateTime opensAt, DateTime closesAt)
         {
-            Id = id;
+            
             Name = name;
             Address = address;
             OpensAt = opensAt;

@@ -6,7 +6,6 @@ namespace BurgerWebApp.Business.Abstraction
     {
         CartViewModel GetCart(int? id);
         List<CartViewModel> GetAllCarts();
-        decimal GetPrice(int id);
         List<ExtrasOrderViewModel> GetExtraOrders(CartViewModel cart);
         List<BurgerOrderViewModel> GetBurgerOrders(CartViewModel cart);
         bool ValidateInputChecks(CartViewModel viewModel);

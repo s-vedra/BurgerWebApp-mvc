@@ -10,36 +10,42 @@ namespace BurgerWebApp.DataAccess.Implementation
 {
     public class LocationRepository : IRepository<Location>
     {
+        private readonly BurgerAppDbContext _dbContext;
+
+        public LocationRepository(BurgerAppDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         public void Add(Location entity)
         {
-            StorageDb.BurgerLocations.Add(entity);
+            _dbContext.Locations.Add(entity);
+            _dbContext.SaveChanges();
         }
 
         public void Delete(Location entity)
         {
-            StorageDb.BurgerLocations.Remove(entity);
+            _dbContext.Locations.Remove(entity);
+            _dbContext.SaveChanges();
         }
 
         public List<Location> GetAll()
         {
-            return StorageDb.BurgerLocations;
+            return _dbContext.Locations.ToList();
         }
 
         public Location GetEntity(int? id)
         {
-            return StorageDb.BurgerLocations.SingleOrDefault(order => order.Id == id);
+            return _dbContext.Locations.SingleOrDefault(order => order.Id == id);
         }
-        public int RandomId()
-        {
-            return IdGenerator.GenerateId();
-        }
+     
         public void Update(Location entity)
         {
             var item = GetEntity(entity.Id);
             if (item != null)
             {
-                int index = StorageDb.BurgerLocations.IndexOf(item);
-                StorageDb.BurgerLocations[index] = entity;
+                _dbContext.Entry(item).CurrentValues.SetValues(entity);
+                _dbContext.SaveChanges();
             }
         }
     }

@@ -21,14 +21,14 @@ namespace BurgerWebApp.Business.Implementation
         }
         public void AddExtraItem(Extra extraItem)
         {
-            StorageDb.ExtraItems.Add(extraItem);
+            _extraRepository.Add(extraItem);
         }
 
         public void DeleteExtraItem(Extra extraItem)
         {
-            StorageDb.ExtraItems.Remove(extraItem);
+            _extraRepository.Delete(extraItem);
         }
-
+            
         public List<ExtraViewModel> GetAllExtraItems()
         {
             List<ExtraViewModel> extraItems = _extraRepository.GetAll().Select(extraItem => extraItem.ToViewModel()).ToList();

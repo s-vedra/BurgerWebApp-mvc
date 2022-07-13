@@ -18,7 +18,7 @@ namespace BurgerWebApp.Business.Mappers
                 BurgerId = burgerOrder.BurgerId,
                 Selected = burgerOrder.Selected,
                 Quantity = burgerOrder.Quantity,
-                FullPrice = burgerOrder.FullPrice
+                CartId = burgerOrder.CartId
             };
         }
     }

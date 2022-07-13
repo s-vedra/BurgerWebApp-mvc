@@ -1,40 +1,48 @@
 ﻿using BurgerWebApp.DataAccess.Abstraction;
 using BurgerWebApp.DomainModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace BurgerWebApp.DataAccess.Implementation
 {
     public class OrderRepository : IRepository<Order>
     {
+        private readonly BurgerAppDbContext _dbContext;
+
+        public OrderRepository(BurgerAppDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         public void Add(Order entity)
         {
-            StorageDb.Order.Add(entity);
+            _dbContext.Orders.Add(entity);
+            _dbContext.SaveChanges();
         }
 
         public void Delete(Order entity)
         {
-            StorageDb.Order.Remove(entity);
+            _dbContext.Orders.Remove(entity);
+            _dbContext.SaveChanges();
         }
 
         public List<Order> GetAll()
         {
-            return StorageDb.Order;
+            return _dbContext.Orders.ToList();
         }
 
         public Order GetEntity(int? id)
         {
-            return StorageDb.Order.SingleOrDefault(order => order.Id == id);
+            return _dbContext.Orders.SingleOrDefault(order => order.Id == id);
         }
-        public int RandomId()
-        {
-            return IdGenerator.GenerateId();
-        }
+     
         public void Update(Order entity)
         {
             var item = GetEntity(entity.Id);
             if (item != null)
             {
-                int index = StorageDb.Order.IndexOf(item);
-                StorageDb.Order[index] = entity;
+
+                _dbContext.Entry(item).CurrentValues.SetValues(entity);
+                _dbContext.SaveChanges();
             }
         }
     }

@@ -13,6 +13,6 @@ namespace BurgerWebApp.DataAccess.Abstraction
         void Update(T entity);
         void Delete(T entity);
         void Add(T entity);
-        int RandomId();
+        
     }
 }

@@ -21,7 +21,7 @@ namespace BurgerWebApp.Business.Implementation
 
         public void Add(LocationViewModel viewModel)
         {
-            Location location = new Location(_locationRepository.RandomId(),viewModel.Name, viewModel.Address,viewModel.OpensAt, viewModel.ClosesAt);
+            Location location = new Location(viewModel.Name, viewModel.Address,viewModel.OpensAt, viewModel.ClosesAt);
             _locationRepository.Add(location);
         }
 
@@ -42,7 +42,7 @@ namespace BurgerWebApp.Business.Implementation
 
         public void Update(LocationViewModel viewModel)
         {
-            Location location = new Location(viewModel.Id,viewModel.Name,viewModel.Address,viewModel.OpensAt,viewModel.ClosesAt);
+            Location location = new Location(viewModel.Name, viewModel.Address, viewModel.OpensAt, viewModel.ClosesAt) { Id = viewModel.Id};
             _locationRepository.Update(location);
         }
 

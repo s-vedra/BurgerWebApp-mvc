@@ -4,18 +4,21 @@
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public Size SizeId { get; set; }
+        //public decimal Price { get; set; }
         public string Image { get; set; }
+        public int SizeId { get; set; }
+        public Size Size { get; set; }
         public Extra()
         {
 
         }
-        public Extra(int id, string name, Size sizeId, string imageUrl)
+        public Extra(string name, string imageUrl, int sizeId)
         {
-            Id = id;
+
             Name = name;
-            SizeId = sizeId;
             Image = imageUrl;
+            SizeId = sizeId;
         }
     }
 }
+

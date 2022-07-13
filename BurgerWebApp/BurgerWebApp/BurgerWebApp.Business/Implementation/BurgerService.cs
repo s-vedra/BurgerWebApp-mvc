@@ -17,7 +17,7 @@ namespace BurgerWebApp.Business.Implementation
 
         public void Add(BurgerViewModel viewModel)
         {
-            Burger burger = new Burger(_burgerRepository.RandomId(),
+            Burger burger = new Burger(
                                         viewModel.Name,
                                         viewModel.Price,
                                         viewModel.IsVegetarian,
@@ -78,7 +78,10 @@ namespace BurgerWebApp.Business.Implementation
 
         public void Update(BurgerViewModel viewModel)
         {
-            Burger burger = new Burger(viewModel.Id,viewModel.Name,viewModel.Price,viewModel.IsVegetarian,viewModel.HasFries,viewModel.Image,viewModel.IsVegan);
+            Burger burger = new Burger(viewModel.Name, viewModel.Price, viewModel.IsVegetarian, viewModel.HasFries, viewModel.Image, viewModel.IsVegan)
+            {
+                Id = viewModel.Id
+            };
             _burgerRepository.Update(burger);
         }
 

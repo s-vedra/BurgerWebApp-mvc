@@ -12,9 +12,9 @@
 
         }
 
-        public Size(int id, string description, decimal price)
+        public Size(string description, decimal price)
         {
-            Id = id;
+          
             Description = description;
             Price = price;
         }

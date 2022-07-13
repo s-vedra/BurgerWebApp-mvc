@@ -16,7 +16,7 @@
         <input asp-for="Address " class="form-control" />
     </div>
     <br />
-    <select asp-for="@Model.Location" asp-items="@(IEnumerable<SelectListItem>) ViewBag.Locations" class="btn btn-dark dropdown-toggle text-white">
+    <select asp-for="@Model.LocationId" asp-items="@(IEnumerable<SelectListItem>) ViewBag.Locations" class="btn btn-dark dropdown-toggle text-white">
         <option>--Select--</option>
     </select>
      <button type="submit" class="btn btn-primary">Save</button>
