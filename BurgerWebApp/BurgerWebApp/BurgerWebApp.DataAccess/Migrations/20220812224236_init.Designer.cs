@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BurgerWebApp.DataAccess.Migrations
 {
     [DbContext(typeof(BurgerAppDbContext))]
-    [Migration("20220811200329_select-option")]
-    partial class selectoption
+    [Migration("20220812224236_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -60,9 +60,6 @@ namespace BurgerWebApp.DataAccess.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<bool>("Select")
-                        .HasColumnType("bit");
-
                     b.HasKey("Id");
 
                     b.ToTable("Burger", (string)null);
@@ -78,8 +75,7 @@ namespace BurgerWebApp.DataAccess.Migrations
                             IsVegan = false,
                             IsVegetarian = false,
                             Name = "Hamburger",
-                            Price = 100m,
-                            Select = false
+                            Price = 100m
                         },
                         new
                         {
@@ -91,8 +87,7 @@ namespace BurgerWebApp.DataAccess.Migrations
                             IsVegan = false,
                             IsVegetarian = false,
                             Name = "Cheeseburger",
-                            Price = 120m,
-                            Select = false
+                            Price = 120m
                         },
                         new
                         {
@@ -104,8 +99,7 @@ namespace BurgerWebApp.DataAccess.Migrations
                             IsVegan = false,
                             IsVegetarian = false,
                             Name = "Chickenburger",
-                            Price = 120m,
-                            Select = false
+                            Price = 120m
                         },
                         new
                         {
@@ -117,8 +111,7 @@ namespace BurgerWebApp.DataAccess.Migrations
                             IsVegan = false,
                             IsVegetarian = true,
                             Name = "Vegeterian Dish",
-                            Price = 220m,
-                            Select = false
+                            Price = 220m
                         },
                         new
                         {
@@ -130,8 +123,7 @@ namespace BurgerWebApp.DataAccess.Migrations
                             IsVegan = true,
                             IsVegetarian = true,
                             Name = "Veggie Burger",
-                            Price = 250m,
-                            Select = false
+                            Price = 250m
                         });
                 });
 
@@ -149,8 +141,14 @@ namespace BurgerWebApp.DataAccess.Migrations
                     b.Property<int>("CartId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<decimal>("Quantity")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("Selected")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -261,6 +259,9 @@ namespace BurgerWebApp.DataAccess.Migrations
                     b.Property<int>("ExtraId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<decimal>("Quantity")
                         .HasColumnType("decimal(18,2)");
 
@@ -368,6 +369,9 @@ namespace BurgerWebApp.DataAccess.Migrations
 
                     b.Property<int>("CartId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDelivered")
                         .HasColumnType("bit");

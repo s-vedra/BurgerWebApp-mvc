@@ -20,7 +20,9 @@ namespace BurgerWebApp.DataAccess.Migrations
                     IsVegetarian = table.Column<bool>(type: "bit", nullable: false),
                     IsVegan = table.Column<bool>(type: "bit", nullable: false),
                     HasFries = table.Column<bool>(type: "bit", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Ingredients = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -80,7 +82,8 @@ namespace BurgerWebApp.DataAccess.Migrations
                     BurgerId = table.Column<int>(type: "int", nullable: false),
                     Selected = table.Column<bool>(type: "bit", nullable: false),
                     Quantity = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    CartId = table.Column<int>(type: "int", nullable: false)
+                    CartId = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -111,7 +114,8 @@ namespace BurgerWebApp.DataAccess.Migrations
                     IsDelivered = table.Column<bool>(type: "bit", nullable: false),
                     CartId = table.Column<int>(type: "int", nullable: false),
                     LocationId = table.Column<int>(type: "int", nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -160,7 +164,8 @@ namespace BurgerWebApp.DataAccess.Migrations
                     ExtraId = table.Column<int>(type: "int", nullable: false),
                     Selected = table.Column<bool>(type: "bit", nullable: false),
                     Quantity = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    CartId = table.Column<int>(type: "int", nullable: false)
+                    CartId = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -181,14 +186,14 @@ namespace BurgerWebApp.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "Burger",
-                columns: new[] { "Id", "HasFries", "Image", "IsVegan", "IsVegetarian", "Name", "Price" },
+                columns: new[] { "Id", "Description", "HasFries", "Image", "Ingredients", "IsVegan", "IsVegetarian", "Name", "Price" },
                 values: new object[,]
                 {
-                    { 1, true, "https://tastesbetterfromscratch.com/wp-content/uploads/2020/06/Classic-Juicy-Hamburger-Recipe-Square.jpg", false, false, "Hamburger", 100m },
-                    { 2, true, "https://www.kitchensanctuary.com/wp-content/uploads/2021/05/Double-Cheeseburger-square-FS-42.jpg", false, false, "Cheeseburger", 120m },
-                    { 3, true, "https://images.unsplash.com/photo-1590498403794-fd0ebd0db70c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80", false, false, "Chickenburger", 120m },
-                    { 4, true, "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/halloumi-burger-4fdad97.jpg", false, true, "Vegeterian Dish", 220m },
-                    { 5, true, "https://thedinnerbell.recipes/wp-content/uploads/2019/11/Edamame-Mushroom-Veggie-Burgers-9.jpg", true, true, "Veggie Burger", 250m }
+                    { 1, "A hamburger is a food consisting of fillings —usually a patty of ground meat, typically beef—placed inside a sliced bun or bread roll. 250kcal / 1046kJ", true, "https://tastesbetterfromscratch.com/wp-content/uploads/2020/06/Classic-Juicy-Hamburger-Recipe-Square.jpg", "Regular Bun, 100% Beef Patty, Ketchup, Pickle Slices, Onions, Mustard", false, false, "Hamburger", 100m },
+                    { 2, "A cheeseburger is a hamburger topped with cheese. Traditionally, the slice of cheese is placed on top of the meat patty. The cheese is usually added to the cooking hamburger patty shortly before serving, which allows the cheese to melt. Cheeseburgers can include variations in structure, ingredients and composition. 303kcal / 1268kJ", true, "https://www.kitchensanctuary.com/wp-content/uploads/2021/05/Double-Cheeseburger-square-FS-42.jpg", "Regular Bun, 100% Beef Patty, Pasteurized Process American Cheese, Ketchup, Pickle Slices, Onions, Mustard", false, false, "Cheeseburger", 120m },
+                    { 3, "A chicken burger is a burger that typically consists of boneless, skinless chicken breast or thigh served between slices of bread, on a bun, or on a roll. Variations on the chicken burger include the chicken burger, chicken on a bun, chickwich, hot chicken, or chicken salad sandwich. 330 kcal / 1388 kJ ", true, "https://images.unsplash.com/photo-1590498403794-fd0ebd0db70c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80", "Regular Bun, Mayonnaise, Lettuce, Value Chicken Patty", false, false, "Chickenburger", 120m },
+                    { 4, "The vegetarian-based burger contains a battered and breaded patty which is made of peas, corn, carrots, green beans, onions, potatoes, rice and spices, served in a sesame toasted bun with eggless mayonnaise and lettuce. 360kcal / 1507kJ", true, "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/halloumi-burger-4fdad97.jpg", "Chickpeas, Sweetcorn, Fresh coriander, Paprika, Tomatoes, Ketchup, Burger buns", false, true, "Vegeterian Dish", 220m },
+                    { 5, "A veggie burger is a hamburger patty that does not contain meat. It may be made from ingredients like beans, especially soybeans and tofu, nuts, grains, seeds or fungi such as mushrooms or mycoprotein. 177kcal / 741kJ", true, "https://images.unsplash.com/photo-1585238341267-1cfec2046a55?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=574&q=80", "Sweet potatoes, Quinoa, Black beans, Red onion, cilantro, and garlic, Spices, Quick-cooking oats", true, true, "Veggie Burger", 250m }
                 });
 
             migrationBuilder.InsertData(
