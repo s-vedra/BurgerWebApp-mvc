@@ -1,10 +1,5 @@
 ﻿using BurgerWebApp.DomainModels;
 using BurgerWebApp.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BurgerWebApp.Business.Mappers
 {
@@ -20,7 +15,9 @@ namespace BurgerWebApp.Business.Mappers
                 IsVegetarian = burger.IsVegetarian,
                 IsVegan = burger.IsVegan,
                 HasFries = burger.HasFries,
-                Image = burger.Image
+                Image = burger.Image,
+                Ingredients = burger.Ingredients,
+                Description = burger.Description
 
             };
         }

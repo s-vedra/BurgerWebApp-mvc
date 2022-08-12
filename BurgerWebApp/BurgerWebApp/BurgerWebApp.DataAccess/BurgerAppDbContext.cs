@@ -30,23 +30,65 @@ namespace BurgerWebApp.DataAccess
             builder.Entity<Size>().ToTable("Size");
 
             builder.Entity<Burger>().HasData(
-                    new Burger("Hamburger", 100, false, true, "https://tastesbetterfromscratch.com/wp-content/uploads/2020/06/Classic-Juicy-Hamburger-Recipe-Square.jpg", false)
+                    new Burger("Hamburger",
+                    100,
+                    false,
+                    true,
+                    "https://tastesbetterfromscratch.com/wp-content/uploads/2020/06/Classic-Juicy-Hamburger-Recipe-Square.jpg",
+                    false,
+                    "Regular Bun, 100% Beef Patty, Ketchup, Pickle Slices, Onions, Mustard",
+                    "A hamburger is a food consisting of fillings —usually a patty of ground meat, typically beef—placed inside a sliced bun or bread roll. 250kcal / 1046kJ")
                     {
                         Id = 1
                     },
-                    new Burger("Cheeseburger", 120, false, true, "https://www.kitchensanctuary.com/wp-content/uploads/2021/05/Double-Cheeseburger-square-FS-42.jpg", false)
+                    new Burger("Cheeseburger",
+                    120,
+                    false,
+                    true,
+                    "https://www.kitchensanctuary.com/wp-content/uploads/2021/05/Double-Cheeseburger-square-FS-42.jpg",
+                    false,
+                    "Regular Bun, 100% Beef Patty, Pasteurized Process American Cheese, Ketchup, Pickle Slices, Onions, Mustard",
+                    "A cheeseburger is a hamburger topped with cheese. Traditionally, the slice of cheese " +
+                    "is placed on top of the meat patty. The cheese is usually added to the cooking hamburger patty " +
+                    "shortly before serving, which allows the cheese to melt. Cheeseburgers can include variations in structure, " +
+                    "ingredients and composition. 303kcal / 1268kJ")
                     {
                         Id = 2
                     },
-                    new Burger("Chickenburger", 120, false, true, "https://images.unsplash.com/photo-1590498403794-fd0ebd0db70c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80", false)
+                    new Burger("Chickenburger",
+                    120,
+                    false,
+                    true,
+                    "https://images.unsplash.com/photo-1590498403794-fd0ebd0db70c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+                    false,
+                    "Regular Bun, Mayonnaise, Lettuce, Value Chicken Patty",
+                    "A chicken burger is a burger that typically consists of boneless, skinless chicken breast or thigh served between slices of bread, on a bun, or on a roll. " +
+                    "Variations on the chicken burger include the chicken burger, chicken on a bun, chickwich, hot chicken, or chicken salad sandwich. 330 kcal / 1388 kJ ")
                     {
                         Id = 3
                     },
-                    new Burger("Vegeterian Dish", 220, true, true, "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/halloumi-burger-4fdad97.jpg", false)
+                    new Burger("Vegeterian Dish",
+                    220,
+                    true,
+                    true,
+                    "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/halloumi-burger-4fdad97.jpg",
+                    false,
+                    "Chickpeas, Sweetcorn, Fresh coriander, Paprika, Tomatoes, Ketchup, Burger buns",
+                    "The vegetarian-based burger contains a battered and breaded patty which is made of peas, " +
+                    "corn, carrots, green beans, onions, potatoes, rice and spices, served in a sesame toasted " +
+                    "bun with eggless mayonnaise and lettuce. 360kcal / 1507kJ")
                     {
                         Id = 4
                     },
-                    new Burger("Veggie Burger", 250, true, true, "https://thedinnerbell.recipes/wp-content/uploads/2019/11/Edamame-Mushroom-Veggie-Burgers-9.jpg", true)
+                    new Burger("Veggie Burger",
+                    250,
+                    true,
+                    true,
+                    "https://images.unsplash.com/photo-1585238341267-1cfec2046a55?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=574&q=80",
+                    true,
+                    "Sweet potatoes, Quinoa, Black beans, Red onion, cilantro, and garlic, Spices, Quick-cooking oats",
+                    "A veggie burger is a hamburger patty that does not contain meat. It may be made from ingredients like beans, " +
+                    "especially soybeans and tofu, nuts, grains, seeds or fungi such as mushrooms or mycoprotein. 177kcal / 741kJ")
                     {
                         Id = 5
                     }
@@ -111,7 +153,7 @@ namespace BurgerWebApp.DataAccess
                         Id = 2
                     },
                     new Size("Large", 100)
-                    { 
+                    {
                         Id = 3
                     }
                 );

@@ -1,18 +1,15 @@
 ﻿@model BurgerViewModel
 
-<div class="card">
-     <div class="product-card h-100">
-      <img  src="@Model.Image" class="card-img-top" alt="...">
-        <div class="card-body p-4">
-          <div class="text-center">
-            <h5 class="card-title">@Model.Name</h5>
-                <p class="card-text">Price: @Model.Price.ToString("C", CultureInfo.CreateSpecificCulture("mk-MK"))</p>
-                <div class="buttons">
-                <a asp-action="Details" asp-controller="Burger" asp-route-id="@Model.Id" class="btn btn-info">Details</a>
-                <a asp-action="AddOrEditBurgerMenu" asp-controller="Burger" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
-                <a asp-action="DeleteBurger" asp-controller="Burger" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
-                </div>
-          </div>  
-        </div>
-     </div>
-</div>   
+  
+<div class="card" style="width: 20rem;">
+       <div class="card-body shadow-lg bg-white rounded">
+           <img class="card-img-top" src="@Model.Image">
+           <h1 class="card-title text-muted">@Model.Name</h1>
+           <h6 class="card-text">Price: @Model.Price.ToString("C", CultureInfo.CreateSpecificCulture("mk-MK"))</h6>
+               <div  class="buttons">
+                    <a asp-action="Details" asp-controller="Burger" asp-route-id="@Model.Id" class="btn btn-primary">Details</a>
+                    <a asp-action="AddOrEditBurgerMenu" asp-controller="Burger" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+                    <a asp-action="DeleteBurger" asp-controller="Burger" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+               </div>
+       </div>
+</div>

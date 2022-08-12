@@ -1,10 +1,5 @@
 ﻿using BurgerWebApp.DomainModels;
 using BurgerWebApp.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BurgerWebApp.Business.Mappers
 {
@@ -21,8 +16,11 @@ namespace BurgerWebApp.Business.Mappers
                 CartId = order.CartId,
                 Location = order.Location.ToViewModel(),
                 TotalPrice = order.TotalPrice,
-                IsDelivered = order.IsDelivered
-                
+                IsDelivered = order.IsDelivered,
+                Cart = order.Cart.ToViewModel(),
+                LocationId = order.LocationId,
+                Date = order.Date
+
             };
         }
     }

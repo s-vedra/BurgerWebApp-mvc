@@ -12,6 +12,7 @@
         public int LocationId { get; set; }
         public Location Location { get; set; }
         public decimal TotalPrice { get; set; }
+        public DateTime Date { get; set; }
 
         public Order()
         {
@@ -21,7 +22,7 @@
 
         public Order(string name, string lastName, string address, bool isDelivered, int locationId, int cartId, decimal totalPrice)
         {
-          
+
             Name = name;
             LastName = lastName;
             Address = address;

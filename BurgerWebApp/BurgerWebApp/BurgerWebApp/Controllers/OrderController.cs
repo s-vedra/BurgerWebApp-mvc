@@ -2,6 +2,7 @@
 using BurgerWebApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Linq;
 
 namespace BurgerWebApp.Controllers
 {
@@ -29,60 +30,49 @@ namespace BurgerWebApp.Controllers
             ViewBag.Locations = _locationService.GetAll();
             return View(_orderService.GetAllOrders());
         }
-        public IActionResult CreateCartViewCart(int? id)
+        public IActionResult GetBurgerOrder(int id)
         {
-            ViewBag.BurgerViewModels = _burgerService.GetAllBurgers();
+            return RedirectToAction("CreateCartModel", new BurgerOrderViewModel() { BurgerId = id});
+        }
+        public IActionResult CreateCartModel(BurgerOrderViewModel model)
+        {
+            ViewBag.BurgerViewModels = _burgerService.GetAllBurgers().Where(x => x.Id != model.BurgerId).ToList();
             ViewBag.ExtraViewModels = _extraService.GetAllExtraItems();
-            if (id.HasValue)
-            {
-                return RedirectToAction("Details", new { id = id });
-            }
-            else
-            {
-                return View(new CartViewModel());
-            }
-
+            return View(new CartViewModel() { BurgerOrders = new List<BurgerOrderViewModel>() { _orderService.ReturnBurgerOrderModel(model) } });
         }
 
         [HttpPost]
         public IActionResult AddToCart(CartViewModel model)
         {
-            if (_cartService.ValidateInputChecks(model))
-            {
-                ViewBag.Cart = _cartService.GetCart(_cartService.Add(model));
-                List<SelectListItem> selectList = _locationService.GetAll().Select(item => new SelectListItem(item.Name, item.Id.ToString())).ToList();
-                ViewBag.Locations = selectList;
-                return View(new OrderViewModel());
-            }
-            else
-            {
-                throw new Exception("Please check atleast one product");
-            }
+            int id = _cartService.Add(model);
+            ViewBag.Locations = _locationService.GetAll().Select(item => new SelectListItem(item.Name, item.Id.ToString())).ToList();
+            return View(new OrderViewModel() { CartId = id});
 
         }
-        public IActionResult Details(int id)
+        public IActionResult AddToCart(OrderViewModel model)
         {
-            CartViewModel cart = _cartService.GetCart(id);
-            ViewBag.Burgers = _cartService.GetBurgers(cart);
-            ViewBag.Extras = _cartService.GetExtraItems(cart);
-            return View(cart);
+            ViewBag.Locations = _locationService.GetAll().Select(item => new SelectListItem(item.Name, item.Id.ToString())).ToList();
+            return View(model);
         }
 
         [HttpPost]
         public IActionResult SaveOrder(OrderViewModel model)
         {
-            if (_orderService.ValidateInputs(model))
+            if (ModelState.IsValid)
             {
                 _orderService.Add(model);
                 return RedirectToAction("Index", "Order");
             }
             else
             {
-                throw new Exception("All inputs must be filled");
+                return RedirectToAction("AddToCart", model);
             }
 
         }
-
+        public IActionResult Details(int id)
+        {
+            return View(_orderService.GetOrder(id));
+        }
         public IActionResult DeleteOrder(int id)
         {
             OrderViewModel order = _orderService.GetOrder(id);
@@ -94,7 +84,25 @@ namespace BurgerWebApp.Controllers
             OrderViewModel order = _orderService.GetOrder(id);
             _orderService.Update(order);
             
-            return RedirectToAction("Index", "Order");
+            return RedirectToAction("Details" , new {id = order.Id });
+        }
+        public IActionResult Search(string id)
+        {
+            if (!int.TryParse(id, out int output))
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                if (_orderService.GetAllOrders().Any(x => x.Id == output))
+                {
+                    return View(_orderService.GetOrder(output));
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
+            }
         }
     }
 

@@ -1,11 +1,6 @@
 ﻿using BurgerWebApp.DataAccess.Abstraction;
 using BurgerWebApp.DomainModels;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BurgerWebApp.DataAccess.Implementation
 {
@@ -50,14 +45,14 @@ namespace BurgerWebApp.DataAccess.Implementation
                 ThenInclude(x => x.Size).
                 SingleOrDefault(order => order.Id == id);
         }
-    
+
         public void Update(Cart entity)
         {
             var item = GetEntity(entity.Id);
             if (item != null)
             {
                 _dbContext.Entry(item).CurrentValues.SetValues(entity);
-            _dbContext.SaveChanges();
+                _dbContext.SaveChanges();
             }
         }
     }

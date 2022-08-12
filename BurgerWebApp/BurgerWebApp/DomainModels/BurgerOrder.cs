@@ -11,17 +11,17 @@ namespace BurgerWebApp.DomainModels
         public decimal Quantity { get; set; }
         public Cart Cart { get; set; }
         public int CartId { get; set; }
+        public decimal Price { get; set; }
 
 
         public BurgerOrder()
         {
 
         }
-        public BurgerOrder(int burgersId, decimal quantity, bool selected)
+        public BurgerOrder(int burgersId, decimal quantity)
         {
             BurgerId = burgersId;
             Quantity = quantity;
-            Selected = selected;
         }
     }
 }

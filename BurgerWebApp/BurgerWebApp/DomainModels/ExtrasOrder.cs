@@ -9,14 +9,14 @@
         public decimal Quantity { get; set; }
         public Cart Cart { get; set; }
         public int CartId { get; set; }
-
+        public decimal Price { get; set; }
         public ExtrasOrder()
         {
 
         }
-        public ExtrasOrder( int extraId, decimal quantity, bool selected)
+        public ExtrasOrder(int extraId, decimal quantity, bool selected)
         {
-          
+
             ExtraId = extraId;
             Quantity = quantity;
             Selected = selected;

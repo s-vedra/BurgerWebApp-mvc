@@ -30,10 +30,18 @@ namespace BurgerWebApp.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("HasFries")
                         .HasColumnType("bit");
 
                     b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ingredients")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -58,8 +66,10 @@ namespace BurgerWebApp.DataAccess.Migrations
                         new
                         {
                             Id = 1,
+                            Description = "A hamburger is a food consisting of fillings —usually a patty of ground meat, typically beef—placed inside a sliced bun or bread roll. 250kcal / 1046kJ",
                             HasFries = true,
                             Image = "https://tastesbetterfromscratch.com/wp-content/uploads/2020/06/Classic-Juicy-Hamburger-Recipe-Square.jpg",
+                            Ingredients = "Regular Bun, 100% Beef Patty, Ketchup, Pickle Slices, Onions, Mustard",
                             IsVegan = false,
                             IsVegetarian = false,
                             Name = "Hamburger",
@@ -68,8 +78,10 @@ namespace BurgerWebApp.DataAccess.Migrations
                         new
                         {
                             Id = 2,
+                            Description = "A cheeseburger is a hamburger topped with cheese. Traditionally, the slice of cheese is placed on top of the meat patty. The cheese is usually added to the cooking hamburger patty shortly before serving, which allows the cheese to melt. Cheeseburgers can include variations in structure, ingredients and composition. 303kcal / 1268kJ",
                             HasFries = true,
                             Image = "https://www.kitchensanctuary.com/wp-content/uploads/2021/05/Double-Cheeseburger-square-FS-42.jpg",
+                            Ingredients = "Regular Bun, 100% Beef Patty, Pasteurized Process American Cheese, Ketchup, Pickle Slices, Onions, Mustard",
                             IsVegan = false,
                             IsVegetarian = false,
                             Name = "Cheeseburger",
@@ -78,8 +90,10 @@ namespace BurgerWebApp.DataAccess.Migrations
                         new
                         {
                             Id = 3,
+                            Description = "A chicken burger is a burger that typically consists of boneless, skinless chicken breast or thigh served between slices of bread, on a bun, or on a roll. Variations on the chicken burger include the chicken burger, chicken on a bun, chickwich, hot chicken, or chicken salad sandwich. 330 kcal / 1388 kJ ",
                             HasFries = true,
                             Image = "https://images.unsplash.com/photo-1590498403794-fd0ebd0db70c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+                            Ingredients = "Regular Bun, Mayonnaise, Lettuce, Value Chicken Patty",
                             IsVegan = false,
                             IsVegetarian = false,
                             Name = "Chickenburger",
@@ -88,8 +102,10 @@ namespace BurgerWebApp.DataAccess.Migrations
                         new
                         {
                             Id = 4,
+                            Description = "The vegetarian-based burger contains a battered and breaded patty which is made of peas, corn, carrots, green beans, onions, potatoes, rice and spices, served in a sesame toasted bun with eggless mayonnaise and lettuce. 360kcal / 1507kJ",
                             HasFries = true,
                             Image = "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/halloumi-burger-4fdad97.jpg",
+                            Ingredients = "Chickpeas, Sweetcorn, Fresh coriander, Paprika, Tomatoes, Ketchup, Burger buns",
                             IsVegan = false,
                             IsVegetarian = true,
                             Name = "Vegeterian Dish",
@@ -98,8 +114,10 @@ namespace BurgerWebApp.DataAccess.Migrations
                         new
                         {
                             Id = 5,
+                            Description = "A veggie burger is a hamburger patty that does not contain meat. It may be made from ingredients like beans, especially soybeans and tofu, nuts, grains, seeds or fungi such as mushrooms or mycoprotein. 177kcal / 741kJ",
                             HasFries = true,
-                            Image = "https://thedinnerbell.recipes/wp-content/uploads/2019/11/Edamame-Mushroom-Veggie-Burgers-9.jpg",
+                            Image = "https://images.unsplash.com/photo-1585238341267-1cfec2046a55?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=574&q=80",
+                            Ingredients = "Sweet potatoes, Quinoa, Black beans, Red onion, cilantro, and garlic, Spices, Quick-cooking oats",
                             IsVegan = true,
                             IsVegetarian = true,
                             Name = "Veggie Burger",
@@ -120,6 +138,9 @@ namespace BurgerWebApp.DataAccess.Migrations
 
                     b.Property<int>("CartId")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("Quantity")
                         .HasColumnType("decimal(18,2)");
@@ -236,6 +257,9 @@ namespace BurgerWebApp.DataAccess.Migrations
                     b.Property<int>("ExtraId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<decimal>("Quantity")
                         .HasColumnType("decimal(18,2)");
 
@@ -253,11 +277,11 @@ namespace BurgerWebApp.DataAccess.Migrations
 
             modelBuilder.Entity("BurgerWebApp.DomainModels.Location", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -343,6 +367,9 @@ namespace BurgerWebApp.DataAccess.Migrations
 
                     b.Property<int>("CartId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDelivered")
                         .HasColumnType("bit");

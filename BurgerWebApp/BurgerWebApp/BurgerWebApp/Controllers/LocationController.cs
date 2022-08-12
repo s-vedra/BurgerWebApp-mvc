@@ -20,14 +20,7 @@ namespace BurgerWebApp.Controllers
             if (id.HasValue)
             {
                LocationViewModel location = _locationService.GetLocation(id);
-                if (location == null)
-                {
-                    return RedirectToAction("Index", "Location");
-                }
-                else
-                {
-                    return View(location);
-                }
+               return View(location);
             }
             else
             {
@@ -36,30 +29,24 @@ namespace BurgerWebApp.Controllers
             
         }
         [HttpPost]
-        public IActionResult SaveLocation(LocationViewModel model)
+        public IActionResult EditOrAddLocation(LocationViewModel model)
         {
-            if (_locationService.ValidateInputs(model))
+            if (model.Name != null && model.Address != null)
             {
-                if (_locationService.GetAll().Any(l => l.Name.ToLower() == model.Name.ToLower() && l.Id != model.Id))
-                {
-                    return RedirectToAction("Index", "Location");
-                }
-                else
-                {
-                    if (model.Id == null)
+                    if (model.Id == 0)
                     {
                         _locationService.Add(model);
+                    return RedirectToAction("Index", "Location");
                     }
                     else
                     {
                         _locationService.Update(model);
                     }
                     return RedirectToAction("Index", "Location");
-                }
             }
             else
             {
-                throw new Exception("All inputs must be filled");
+                return View(model);
             }
             
             
@@ -70,9 +57,17 @@ namespace BurgerWebApp.Controllers
             _locationService.Delete(location.Id);
             return RedirectToAction("Index","Location");
         }
-        public IActionResult Details(int id)
+        public IActionResult Search(string id)
         {
-            return View(_locationService.GetLocation(id));
+
+            if (string.IsNullOrEmpty(id) || !_locationService.GetAll().Any(x => x.Name.ToLower().Contains(id.ToLower())))
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(_locationService.GetAll().Where(burger => burger.Name.ToLower().Contains(id.ToLower())).ToList());
+            }
         }
     }
 }

@@ -21,7 +21,7 @@ namespace BurgerWebApp.Controllers
         public IActionResult Index()
         {
             ViewBag.Extras = _extraService.GetAllExtraItems().Where(x => x.Name == "Small Fries" || x.Name == "Small Coke");
-            return View(_burgerService.GetAllBurgers());
+            return View(_burgerService.RandomBurgers());
         }
 
 

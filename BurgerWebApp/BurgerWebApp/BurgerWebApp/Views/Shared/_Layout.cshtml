@@ -3,16 +3,16 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - BurgerWebApp</title>
+    <title>HungryBurger</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BurgerWebApp.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container-fluid">
-               
+                <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">HungryBurger</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,44 +20,31 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-muted" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Burger" asp-action="Index">Menu</a>
-                        </li>
-                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="CreateCartViewCart" class="btn btn-primary">Make An Order</a>
+                            <a class="nav-link text-muted" asp-area="" asp-controller="Burger" asp-action="Index">Menu</a>
                         </li>
                           <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index">Orders</a>
+                            <a class="nav-link text-muted" asp-area="" asp-controller="Order" asp-action="Index">Orders</a>
                         </li>
                          <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Location" asp-action="Index">Locations</a>
+                            <a class="nav-link text-muted" asp-area="" asp-controller="Location" asp-action="Index">Locations</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-                  <div class="form-search">
-                      <form asp-action="Search" asp-controller="Burger">
-                                <div class="form-floating mb-4">
-                
-                                    <input type="text" name="id" class="form-control" id="form-search" placeholder="Search"/>
-                                    <label class="form-label" for="form-search">Search</label>
-                                    <input type="submit" value="Search" class="btn btn-primary btn-search" />
-                                </div>
-                      </form>
-                    </div>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted bg-dark">
         <div class="container">
-            &copy; 2022 - BurgerWebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - BurgerWebApp 
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -1,6 +1,5 @@
 ﻿using BurgerWebApp.Business.Abstraction;
 using BurgerWebApp.Business.Mappers;
-using BurgerWebApp.DataAccess;
 using BurgerWebApp.DataAccess.Abstraction;
 using BurgerWebApp.DomainModels;
 using BurgerWebApp.ViewModels;
@@ -23,12 +22,14 @@ namespace BurgerWebApp.Business.Implementation
                                         viewModel.IsVegetarian,
                                         viewModel.HasFries,
                                         viewModel.Image,
-                                        viewModel.IsVegan);
+                                        viewModel.IsVegan,
+                                        viewModel.Ingredients == null ? "" : viewModel.Ingredients,
+                                        viewModel.Description == null ? "" : viewModel.Description);
             _burgerRepository.Add(burger);
         }
         public void Delete(int id)
         {
-          Burger burger = _burgerRepository.GetEntity(id);
+            Burger burger = _burgerRepository.GetEntity(id);
             _burgerRepository.Delete(burger);
         }
 
@@ -40,61 +41,50 @@ namespace BurgerWebApp.Business.Implementation
 
         public List<BurgerViewModel> GetAllBurgers()
         {
-            List<BurgerViewModel> burgers = _burgerRepository.GetAll().Select(burger => burger.ToViewModel()).ToList();
-            if (burgers.Count != 0)
-            {
-                return burgers;
-            }
-            else
-            {
-                throw new Exception("There aren't any burgers");
-            }
+            return _burgerRepository.GetAll().Select(burger => burger.ToViewModel()).ToList();
         }
 
         public BurgerViewModel GetBurger(int? id)
         {
             BurgerViewModel? burger = _burgerRepository.GetEntity(id).ToViewModel();
-            if (burger == null)
-            {
-                throw new Exception("Item doesn't exist");
-            }
-            else
-            {
-                return burger;
-            }
-        }
-
-        public List<BurgerViewModel> SearchOption(string name)
-        {
-            if (string.IsNullOrEmpty(name))
-            {
-                return GetAllBurgers();
-            }
-            else
-            {
-                return GetAllBurgers().Where(burger => burger.Name.ToLower().Contains(name.ToLower())).ToList();
-            }
+            return burger;
         }
 
         public void Update(BurgerViewModel viewModel)
         {
-            Burger burger = new Burger(viewModel.Name, viewModel.Price, viewModel.IsVegetarian, viewModel.HasFries, viewModel.Image, viewModel.IsVegan)
+            Burger burger = new Burger(viewModel.Name,
+                                       viewModel.Price,
+                                       viewModel.IsVegetarian,
+                                       viewModel.HasFries,
+                                       viewModel.Image,
+                                       viewModel.IsVegan,
+                                       viewModel.Ingredients == null ? "" : viewModel.Ingredients,
+                                       viewModel.Description == null ? "" : viewModel.Description)
             {
                 Id = viewModel.Id
             };
             _burgerRepository.Update(burger);
         }
-
-        public bool ValidateInputs(BurgerViewModel viewModel)
+        public List<BurgerViewModel> RandomBurgers()
         {
-            if (string.IsNullOrEmpty(viewModel.Name) && viewModel.Price == 0)
+            Random rndm = new Random();
+            List<BurgerViewModel> burgerViewModels = GetAllBurgers();
+            List<BurgerViewModel> burgersToSend = new List<BurgerViewModel>();
+            for (int i = 0; i<3;i++)
             {
-                return false;
+                int rnd = rndm.Next(1, burgerViewModels.Count);
+                BurgerViewModel burger = burgerViewModels[rnd];
+                if (burgersToSend.Contains(burger))
+                {
+                    burgersToSend.Remove(burger);
+                }
+                else
+                {
+                    burgersToSend.Add(burger);
+                }
             }
-            else
-            {
-                return true;
-            }
+            return burgersToSend;
         }
+
     }
 }

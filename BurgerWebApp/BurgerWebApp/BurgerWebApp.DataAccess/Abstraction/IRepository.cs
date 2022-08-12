@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BurgerWebApp.DataAccess.Abstraction
+﻿namespace BurgerWebApp.DataAccess.Abstraction
 {
     public interface IRepository<T>
     {
@@ -13,6 +7,6 @@ namespace BurgerWebApp.DataAccess.Abstraction
         void Update(T entity);
         void Delete(T entity);
         void Add(T entity);
-        
+
     }
 }

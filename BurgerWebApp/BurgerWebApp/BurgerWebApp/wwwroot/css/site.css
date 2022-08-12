@@ -14,7 +14,22 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #cfbfae3b;
+}
+@media (max-width : 760px) {
+    .burger-details {
+        display: flex;
+        flex-wrap: wrap;
+        width: 20rem
+    }
+    .order-table {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        flex-direction: row;
+        justify-content: center;
+    }
 }
 .card {
     width: 15em;
@@ -32,8 +47,8 @@ body {
 .index-page {
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 2em;
+    flex-wrap: wrap;
 }
 .checkbox-input {
     display: flex;
@@ -80,10 +95,10 @@ img{
 }
 .buttons {
     display: flex;
+    justify-content: start;
+    flex-direction: row;
     flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: center;
-    gap:1em;
+    gap: 0.5em;
 }
 .order-details {
     display: flex;
@@ -101,7 +116,9 @@ img{
     display: flex;
     align-items: center;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 2em;
+    justify-content: space-evenly;
 }
 .time-inputs {
     display: flex;
@@ -119,4 +136,50 @@ img{
 .form-floating {
     display: flex;
     gap: 0.2em;
+}
+.burger-info{
+    display:flex;
+    gap:1em;
+}
+.burger-details-page {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.burger-details {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.add-new-burger-form {
+    background-image: url("https://images.unsplash.com/photo-1595871213029-7476de0d71dd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1069&q=80");
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 3rem;
+}
+.input-forms {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+.extra-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top:5em;
+    gap:2em;
+}
+.location-order {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+.search-option {
+    display: flex;
+    gap: 1em;
+    float: right;
 }

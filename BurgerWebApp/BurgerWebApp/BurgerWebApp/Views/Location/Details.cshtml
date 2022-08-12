@@ -7,8 +7,8 @@
     <p class="card-text"><small class="text-muted">Address: @Model.Address</small></p>
     <p class="card-text"><small class="text-muted">Working Hours: @Model.OpensAt.ToString("HH:mm") - @Model.ClosesAt.ToString("HH:mm")</small></p>
     <div class="buttons">
-    <a asp-action="EditOrAddLocation" asp-controller="Location" asp-route-id="@Model.Id" class="btn btn-outline-warning">Edit Location</a>
-    <a asp-action="DeleteLocation" asp-controller="Location" asp-route-id="@Model.Id" class="btn btn-danger">Delete Location</a>
+    <a asp-action="EditOrAddLocation" asp-controller="Location" asp-route-id="@Model.Id" class="btn btn-outline-warning">Edit</a>
+    <a asp-action="DeleteLocation" asp-controller="Location" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
     </div>
   </div>
 </div>

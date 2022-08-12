@@ -1,0 +1,42 @@
+﻿@model OrderViewModel
+<div class="form-search">
+       <form asp-action="Search" asp-controller="Order">
+            <div class="form-group search-option">
+                <input type="text" name="id" class="form-control w-100" placeholder="Search"/>
+                <button type="submit" value="Search" class="btn btn-dark btn-search">Search</button>
+            </div>
+       </form>
+   </div>
+<input type="hidden" asp-for="@Model.CartId"/>
+<table class="table table-hover order-table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Full Name</th>
+      <th scope="col">Address</th>
+      <th scope="col">Order Details</th>
+      <th scope="col">Delivery Status:</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>@Model.Id</td>
+      <td>@Model.Name @Model.LastName</td>
+      <td>@Model.Address</td>
+      <td><a asp-action="Details" asp-controller="Order" asp-route-id="@Model.Id" class="btn btn-outline-dark">Order Details</a></td>
+               
+                @{
+                    if (Model.IsDelivered)
+                    {
+                        <td>Delivered</td>
+                    }
+                    else
+                    {
+                        <td>Not Delivered</td>
+                    }
+                }
+       <td><a asp-action="ConfirmDelivery" asp-controller="Order" asp-route-id="@Model.Id" class="btn btn-warning">Confirm Delivery</a></td>
+       <td><a asp-action="DeleteOrder" asp-controller="Order" asp-route-id="@Model.Id" class="btn btn-outline-danger">Delete</a></td> 
+    </tr>
+  </tbody>
+</table>

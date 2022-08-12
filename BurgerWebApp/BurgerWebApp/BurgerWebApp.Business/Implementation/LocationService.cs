@@ -3,11 +3,6 @@ using BurgerWebApp.Business.Mappers;
 using BurgerWebApp.DataAccess.Abstraction;
 using BurgerWebApp.DomainModels;
 using BurgerWebApp.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BurgerWebApp.Business.Implementation
 {
@@ -21,7 +16,8 @@ namespace BurgerWebApp.Business.Implementation
 
         public void Add(LocationViewModel viewModel)
         {
-            Location location = new Location(viewModel.Name, viewModel.Address,viewModel.OpensAt, viewModel.ClosesAt);
+            Location location = new Location(viewModel.Name, viewModel.Address, viewModel.OpensAt, viewModel.ClosesAt);
+
             _locationRepository.Add(location);
         }
 
@@ -37,25 +33,14 @@ namespace BurgerWebApp.Business.Implementation
 
         public LocationViewModel GetLocation(int? id)
         {
-          return _locationRepository.GetEntity(id).ToViewModel();
+            return _locationRepository.GetEntity(id).ToViewModel();
         }
 
         public void Update(LocationViewModel viewModel)
         {
-            Location location = new Location(viewModel.Name, viewModel.Address, viewModel.OpensAt, viewModel.ClosesAt) { Id = viewModel.Id};
+            Location location = new Location(viewModel.Name, viewModel.Address, viewModel.OpensAt, viewModel.ClosesAt) { Id = viewModel.Id };
             _locationRepository.Update(location);
         }
 
-        public bool ValidateInputs(LocationViewModel viewModel)
-        {
-            if (string.IsNullOrEmpty(viewModel.Name) || string.IsNullOrEmpty(viewModel.Address))
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
     }
 }

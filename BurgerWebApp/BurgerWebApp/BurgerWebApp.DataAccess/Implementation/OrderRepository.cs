@@ -27,14 +27,30 @@ namespace BurgerWebApp.DataAccess.Implementation
 
         public List<Order> GetAll()
         {
-            return _dbContext.Orders.Include(x => x.Location).ToList();
+            return _dbContext.Orders.
+                Include(x => x.Cart).
+                ThenInclude(x => x.BurgerOrders).
+                ThenInclude(x => x.Burger).
+                Include(x => x.Cart).
+                ThenInclude(x => x.Extras).
+                ThenInclude(x => x.Extra).
+                ThenInclude(x => x.Size).
+                Include(x => x.Location).ToList();
         }
 
         public Order GetEntity(int? id)
         {
-            return _dbContext.Orders.Include(x => x.Location).SingleOrDefault(order => order.Id == id);
+            return _dbContext.Orders.
+                Include(x => x.Cart).
+                ThenInclude(x => x.BurgerOrders).
+                ThenInclude(x => x.Burger).
+                Include(x => x.Cart).
+                ThenInclude(x => x.Extras).
+                ThenInclude(x => x.Extra).
+                ThenInclude(x => x.Size).
+                Include(x => x.Location).SingleOrDefault(order => order.Id == id);
         }
-     
+
         public void Update(Order entity)
         {
             var item = GetEntity(entity.Id);

@@ -1,19 +1,48 @@
 ﻿@model BurgerViewModel
+<div class="add-new-burger-form">
+<form asp-action="AddOrEditBurgerMenu" asp-controller="Burger" method="post">
+    <h1 class="display-6 mx-2">Add New Burger</h1>
 
-<form asp-action="SaveBurgerMenu" asp-controller="Burger" method="post">
      <input type="hidden" asp-for="Id" />
-    <label asp-for="Name" class="form-label"></label>
-    <input asp-for="Name" class="form-control" />
-    <label asp-for="Price" class="form-label"></label>
-    <input asp-for="Price" class="form-control" />
+     <div class="form-group mt-3 mx-4">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group mx-4">
+         <label asp-for="Image" class="form-label"></label>
+        <input asp-for="Image" class="form-control" />
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+           
+      <div class="input-forms mx-4">
+    <div class="form-group mt-3">
     <label asp-for="IsVegan" class="form-label"></label>
     <input type="checkbox" value="true" asp-for="IsVegan"/>
     <label asp-for="IsVegetarian" class="form-label"></label>
     <input type="checkbox" value="true" asp-for="IsVegetarian"/>
     <label asp-for="HasFries" class="form-label"></label>
     <input type="checkbox" value="true" asp-for="HasFries"/>
-    <br />
-    <label asp-for="Image" class="form-label"></label>
-    <input asp-for="Image" class="form-control" />
-    <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+     @{
+                if (Model.Price != 0)
+                {
+                    <div class="form-group">
+                      <label asp-for="Price" class="form-label"></label>
+                      <input type="number" asp-for="Price" class="form-control" value="@Model.Price"/>
+                    </div>
+                }
+                else
+                {
+                     <div class="form-group">
+                      <label asp-for="Price" class="form-label"></label>
+                      <input type="number" asp-for="Price" class="form-control" value="100"/>
+                    </div>
+                }
+            }
+ 
+    </div>
+    <button type="submit" class="btn btn-dark float-end">Save</button>
 </form>
+
+</div>

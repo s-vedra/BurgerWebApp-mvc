@@ -1,5 +1,4 @@
-﻿using BurgerWebApp.DomainModels;
-using BurgerWebApp.ViewModels;
+﻿using BurgerWebApp.ViewModels;
 
 namespace BurgerWebApp.Business.Abstraction
 {
@@ -7,9 +6,9 @@ namespace BurgerWebApp.Business.Abstraction
     {
         OrderViewModel GetOrder(int? id);
         List<OrderViewModel> GetAllOrders();
+        BurgerOrderViewModel ReturnBurgerOrderModel(BurgerOrderViewModel model);
         void Delete(int id);
         void Add(OrderViewModel viewModel);
-        bool ValidateInputs(OrderViewModel viewModel);
         void Update(OrderViewModel viewModel);
     }
 }

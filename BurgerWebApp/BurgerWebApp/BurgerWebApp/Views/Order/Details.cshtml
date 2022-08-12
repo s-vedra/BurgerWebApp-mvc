@@ -1,38 +1,65 @@
-﻿@model CartViewModel
-<h1 class="title">Your Order Details</h1>
-<div class="order-details">
+﻿@model OrderViewModel
+<h1>Order #@Model.Id <span class="h4 text-muted">@Model.Location.Address</span> <span class="h6 text-muted">@Model.Date.ToShortDateString()</span></h1>
+<td><a asp-action="ConfirmDelivery" asp-controller="Order" asp-route-id="@Model.Id" class="btn btn-warning">Confirm Delivery</a></td>
+<hr>
+<h5>Delivery Status: </h5>
+                @{
+                    if (Model.IsDelivered)
+                    {
+                        <td>Delivered</td>
+                    }
+                    else
+                    {
+                        <td>Not Delivered</td>
+                    }
+                }
+<h4>Personal Information</h4>
+<h5 class="text-muted">First Name: @Model.Name</h5>
+<h5 class="text-muted">Last Name: @Model.LastName</h5>
+<h5 class="text-muted">Address: @Model.Address</h5>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Subtotal</th>
+    </tr>
+  </thead>
+  <tbody>
+        @foreach (var item in Model.Cart.BurgerOrders)
+        {
+            <tr>
+              <td class="text-black">@item.Burger.Name 
+                        @{
+                      
+                            if (@item.Burger.HasFries)
+                            {
+                                 <br />
+                               <span class="text-muted">Includes Fries</span> 
+                            }else{
+                                <br />
+                                <span class="text-muted">Without Fries</span>
+                            }
+                        }
+                  
+                  </td>
+                 
+              <td>@item.Quantity</td>
+              <td>@item.Price.ToString("C", CultureInfo.CreateSpecificCulture("mk-MK"))</td>
+            </tr>
+        }
+     @foreach (var extra in Model.Cart.Extras)
+     {
+        <tr>
+         <td>@extra.Extra.Name</td>
+         <td>@extra.Quantity</td>
+         <td>@extra.Price.ToString("C", CultureInfo.CreateSpecificCulture("mk-MK"))</td>
+        </tr>
+     }
+  </tbody>
+</table>
 
-@{
-    for(int i = 0; i< Model.BurgerOrders.Count; i++){
-    <div class="card">
-           <div class="product-card h-100">
-             <img  src="@ViewBag.Burgers[i].Image" class="card-img-top" alt="...">
-                <div class="card-body p-4">
-                   <div class="text-center">
-                      <h5 class="card-title">@ViewBag.Burgers[i].Name</h5>
-                         <p class="card-text">Price: @ViewBag.Burgers[i].Price.ToString("C", CultureInfo.CreateSpecificCulture("mk-MK")) x @Model.BurgerOrders[i].Quantity</p> 
-                        
-                   </div>  
-                </div>
-           </div>
-    </div>
-}
-}
-
-@{
-    for(int i = 0; i< Model.Extras.Count; i++){
-    <div class="card">
-           <div class="product-card h-100">
-             <img  src="@ViewBag.Extras[i].Image" class="card-img-top" alt="...">
-                <div class="card-body p-4">
-                   <div class="text-center">
-                      <h5 class="card-title">@ViewBag.Extras[i].Name</h5>
-                         <p class="card-text">Price: @ViewBag.Extras[i].Size.Price.ToString("C", CultureInfo.CreateSpecificCulture("mk-MK")) x @Model.Extras[i].Quantity</p> 
-                        
-                   </div>  
-                </div>
-           </div>
-    </div>
-}
-}
+<div class="float-end mx-5 mt-4">
+    <h1>Total: @Model.TotalPrice.ToString("C", CultureInfo.CreateSpecificCulture("mk-MK"))</h1>
 </div>
+  

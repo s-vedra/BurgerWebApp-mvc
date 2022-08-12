@@ -11,30 +11,89 @@ namespace BurgerWebApp.Business.Implementation
         private readonly IBurgerService _burgerService;
         private readonly IExtraService _extraService;
         private readonly IRepository<Cart> _cartRepository;
-        public CartService(IBurgerService burgerService, IExtraService extraService, IRepository<Cart> cartRepository)
+        private readonly IRepository<Burger> _burgerRepository;
+        private readonly IRepository<Extra> _extraRepository;
+        public CartService(IBurgerService burgerService, IExtraService extraService, IRepository<Cart> cartRepository, IRepository<Burger> burgerRepository, IRepository<Extra> extraRepository)
         {
             _burgerService = burgerService;
             _extraService = extraService;
             _cartRepository = cartRepository;
+            _burgerRepository = burgerRepository;
+            _extraRepository = extraRepository;
         }
 
-        public int Add(CartViewModel burger)
+        public int Add(CartViewModel cartModel)
         {
-            List<BurgerOrder> burgers = new List<BurgerOrder>();
-            List<ExtrasOrder> extras = new List<ExtrasOrder>();
-            foreach (var item in GetBurgerOrders(burger))
+            List<BurgerOrder> burgerOrders = GetBurgerOrders(cartModel.BurgerOrderCheckbox.Where(x => x.Selected).ToList());
+            foreach (var item in cartModel.BurgerOrders)
             {
-                burgers.Add(new BurgerOrder(item.BurgerId, item.Quantity, item.Selected));
+                BurgerOrder order = new BurgerOrder()
+                {
+                    Burger = _burgerRepository.GetEntity(item.BurgerId),
+                    BurgerId = item.BurgerId,
+                    Quantity = item.Quantity,
+                    Selected = item.Selected
+                };
+                order.Price = order.Burger.Price * order.Quantity;
+                burgerOrders.Add(order);
             }
-            foreach (var item in GetExtraOrders(burger))
+            if (cartModel.Extras.Where(x => x.Selected).ToList().Count != 0)
             {
-                extras.Add(new ExtrasOrder(item.ExtraId, item.Quantity, item.Selected));
+                List<ExtrasOrder> extraOrders = GetExtraOrders(cartModel.Extras.Where(x => x.Selected).ToList());
+                Cart cart = new Cart()
+                {
+                    BurgerOrders = burgerOrders,
+                    Extras = extraOrders
+                };
+                cart.FullPrice = burgerOrders.Select(x => x.Price).Sum() + extraOrders.Select(x => x.Price).Sum();
+                _cartRepository.Add(cart);
+                return cart.Id;
             }
-            Cart cart = new Cart( burgers, extras);
-            _cartRepository.Add(cart);
-            return cart.Id;
+            else
+            {
+                Cart cart = new Cart()
+                {
+                    BurgerOrders = burgerOrders
+                };
+                _cartRepository.Add(cart);
+                cart.FullPrice = burgerOrders.Select(x => x.Price).Sum();
+                return cart.Id;
+            }
+        }
+        private List<BurgerOrder> GetBurgerOrders(List<BurgerOrderViewModelCheckbox> burgerModelOrders)
+        {
+            List<BurgerOrder> burgerOrders = new List<BurgerOrder>();
+            foreach (var item in burgerModelOrders)
+            {
+                BurgerOrder burgerOrder = new BurgerOrder()
+                {
+                    Burger = _burgerRepository.GetEntity(item.BurgerId),
+                    BurgerId = item.BurgerId,
+                    Quantity = item.Quantity,
+                    Selected = item.Selected,
+                };
+                burgerOrder.Price = burgerOrder.Burger.Price * burgerOrder.Quantity;
+                burgerOrders.Add(burgerOrder);
+            }
+            return burgerOrders;
         }
 
+        private List<ExtrasOrder> GetExtraOrders(List<ExtrasOrderViewModel> extrasOrderViewModels)
+        {
+            List<ExtrasOrder> extraOrders = new List<ExtrasOrder>();
+            foreach (var item in extrasOrderViewModels)
+            {
+                ExtrasOrder extraOrder = new ExtrasOrder()
+                {
+                    Extra = _extraRepository.GetEntity(item.ExtraId),
+                    Quantity = item.Quantity,
+                    Selected = item.Selected
+                };
+                extraOrder.Price = extraOrder.Extra.Size.Price * extraOrder.Quantity;
+                extraOrders.Add(extraOrder);
+            }
+            return extraOrders;
+        }
         public void Delete(int id)
         {
             Cart cart = _cartRepository.GetEntity(id);
@@ -43,70 +102,14 @@ namespace BurgerWebApp.Business.Implementation
 
         public List<CartViewModel> GetAllCarts()
         {
-            List<CartViewModel> carts = _cartRepository.GetAll().Select(cart => cart.ToViewModel()).ToList();
-            if (carts.Count != 0)
-            {
-                return carts;
-            }
-            else
-            {
-                throw new Exception("Cart doesn't exist");
-            }
+            return _cartRepository.GetAll().Select(cart => cart.ToViewModel()).ToList();
+
         }
 
-        public List<BurgerOrderViewModel> GetBurgerOrders(CartViewModel cart)
+        public CartViewModel GetCart(int id)
         {
-            return cart.BurgerOrders.Where(b => b.Selected).ToList();
+            return _cartRepository.GetEntity(id).ToViewModel();
         }
 
-        public List<BurgerViewModel> GetBurgers(CartViewModel viewModel)
-        {
-            List<BurgerViewModel> burgerViewModels = new List<BurgerViewModel>();
-            foreach (var item in GetBurgerOrders(viewModel))
-            {
-                burgerViewModels.Add(_burgerService.GetBurger(item.BurgerId));
-            }
-            return burgerViewModels;
-        }
-
-        public CartViewModel GetCart(int? id)
-        {
-            Cart? cart = _cartRepository.GetEntity(id);
-            if (cart == null)
-            {
-                throw new Exception("Item doesn't exist");
-            }
-            else
-            {
-                return cart.ToViewModel();
-            }
-        }
-
-        public List<ExtraViewModel> GetExtraItems(CartViewModel viewModel)
-        {
-            List<ExtraViewModel> extrasViewModel = new List<ExtraViewModel>();
-            foreach (var item in GetExtraOrders(viewModel))
-            {
-                extrasViewModel.Add(_extraService.GetExtraItem(item.ExtraId));
-            }
-            return extrasViewModel;
-        }
-
-        public List<ExtrasOrderViewModel> GetExtraOrders(CartViewModel cart)
-        {
-            return cart.Extras.Where(e => e.Selected).ToList();
-        }
-
-        public bool ValidateInputChecks(CartViewModel viewModel)
-        {
-            if (viewModel.BurgerOrders.Where(b => b.Selected).Count() == 0)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
     }
 }

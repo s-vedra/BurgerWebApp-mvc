@@ -7,9 +7,11 @@ namespace BurgerWebApp.Controllers
     public class BurgerController : Controller
     {
         private readonly IBurgerService _burgerService;
-        public BurgerController(IBurgerService burgerService)
+        private readonly IExtraService _extraService;
+        public BurgerController(IBurgerService burgerService, IExtraService extraService)
         {
             _burgerService = burgerService;
+            _extraService = extraService;
         }
         public IActionResult Index()
         {
@@ -17,6 +19,7 @@ namespace BurgerWebApp.Controllers
         }
         public IActionResult Details(BurgerViewModel model)
         {
+            ViewBag.ExtraItems = _extraService.GetAllExtraItems();
             return View(_burgerService.Details(model));
         }
         public IActionResult AddOrEditBurgerMenu(int? id)
@@ -36,31 +39,25 @@ namespace BurgerWebApp.Controllers
             return View(new BurgerViewModel());
         }
         [HttpPost]
-        public IActionResult SaveBurgerMenu(BurgerViewModel model)
+        public IActionResult AddOrEditBurgerMenu(BurgerViewModel model)
         {
-            if (_burgerService.ValidateInputs(model))
+            if (ModelState.IsValid)
             {
-                if (_burgerService.GetAllBurgers().Any(burger => burger.Name.ToLower() == model.Name.ToLower() && burger.Id != model.Id))
-                {
-                    return RedirectToAction("Index", "Burger");
-                }
-                else
-                {
                     if (model.Id == 0)
                     {
 
                         _burgerService.Add(model);
+                        return RedirectToAction("Index", "Burger");
                     }
                     else
                     {
                         _burgerService.Update(model);
+                        return RedirectToAction("Index", "Burger");
                     }
-                }
-                return RedirectToAction("Index", "Burger");
             }
             else
             {
-                throw new Exception("All inputs must be filled");
+                return View(model);
             }
 
         }
@@ -72,7 +69,14 @@ namespace BurgerWebApp.Controllers
 
         public IActionResult Search(string id)
         {
-            return View(_burgerService.SearchOption(id));
+            if (string.IsNullOrEmpty(id) || !_burgerService.GetAllBurgers().Any(burger => burger.Name.ToLower().Contains(id.ToLower())))
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(_burgerService.GetAllBurgers().Where(burger => burger.Name.ToLower().Contains(id.ToLower())).ToList());
+            }
         }
 
     }

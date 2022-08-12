@@ -41,7 +41,7 @@ namespace BurgerWebApp.DataAccess.Implementation
             if (item != null)
             {
                 _dbContext.Entry(item).CurrentValues.SetValues(entity);
-            _dbContext.SaveChanges();
+                _dbContext.SaveChanges();
             }
         }
     }

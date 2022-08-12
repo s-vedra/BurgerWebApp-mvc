@@ -1,10 +1,5 @@
 ﻿using BurgerWebApp.DataAccess.Abstraction;
 using BurgerWebApp.DomainModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BurgerWebApp.DataAccess.Implementation
 {
@@ -28,10 +23,10 @@ namespace BurgerWebApp.DataAccess.Implementation
             _dbContext.Burgers.Remove(entity);
             _dbContext.SaveChanges();
         }
-            
-    
 
-    public List<Burger> GetAll()
+
+
+        public List<Burger> GetAll()
         {
             return _dbContext.Burgers.ToList();
         }
@@ -41,7 +36,7 @@ namespace BurgerWebApp.DataAccess.Implementation
             return _dbContext.Burgers.SingleOrDefault(order => order.Id == id);
         }
 
-     
+
 
         public void Update(Burger entity)
         {

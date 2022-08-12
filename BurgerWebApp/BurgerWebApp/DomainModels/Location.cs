@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace BurgerWebApp.DomainModels
+﻿namespace BurgerWebApp.DomainModels
 {
     public class Location
     {
@@ -18,7 +16,7 @@ namespace BurgerWebApp.DomainModels
 
         public Location(string name, string address, DateTime opensAt, DateTime closesAt)
         {
-            
+
             Name = name;
             Address = address;
             OpensAt = opensAt;

@@ -1,9 +1,4 @@
 ﻿using BurgerWebApp.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BurgerWebApp.Business.Abstraction
 {
@@ -13,7 +8,6 @@ namespace BurgerWebApp.Business.Abstraction
         LocationViewModel GetLocation(int? id);
         void Add(LocationViewModel viewModel);
         void Delete(int? id);
-        bool ValidateInputs(LocationViewModel viewModel);
         void Update(LocationViewModel viewModel);
     }
 }

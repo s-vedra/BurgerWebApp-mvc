@@ -1,10 +1,5 @@
 ﻿using BurgerWebApp.DataAccess.Abstraction;
 using BurgerWebApp.DomainModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BurgerWebApp.DataAccess.Implementation
 {
@@ -38,7 +33,7 @@ namespace BurgerWebApp.DataAccess.Implementation
         {
             return _dbContext.Locations.SingleOrDefault(order => order.Id == id);
         }
-     
+
         public void Update(Location entity)
         {
             var item = GetEntity(entity.Id);

@@ -1,39 +1,57 @@
 ﻿@model BurgerViewModel
 
-<div class="card" style="width: 20rem;">
+<div class="burger-details-page">
+    <div class="card burger-details shadow-lg bg-white rounded" style="width: 50rem;">
       <img src="@Model.Image" class="card-img-top" alt="...">
-         <div class="card-body">
+         <div class="card-body shadow-lg bg-white rounded">
             <h3 class="card-title">@Model.Name</h3>
                 <p class="card-text">Price: @Model.Price.ToString("C", CultureInfo.CreateSpecificCulture("mk-MK"))</p>
-                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                         Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                         when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                         It has survived not only five centuries, but also the leap into electronic typesetting, 
-                         remaining essentially unchanged.</p>
+                <h5>Description:</h5>
+                  <h5 class="text-justify text-muted">@Model.Description</h5>
+                <h6>Ingridients:</h6>
+                <p>@Model.Ingredients</p>
+            <div class="burger-info">
         @{
             if(@Model.IsVegan)
             {
-                <p>Vegan</p>
+                <p class="text-danger">Vegan</p>
+
             }else if (@Model.IsVegetarian)
             {
-                <p>Vegetarian</p>
+                <p class="text-danger">Vegetarian</p>
             }
             else
             {
-                <p>Contains Meat</p>
+                <p class="text-danger">Contains Meat</p>
             }
-        }
+         }
         @{
             if (@Model.HasFries)
             {
-                <p>Comes with Fries</p>
+                <p class="text-danger">Comes with Fries</p>
             }
             else
             {
-                <p>Doesn't come with fries</p>
+                <p class="text-danger">Doesn't come with fries</p>
             }
-        }
+         }
+            </div> 
                      <a asp-action="Index" asp-controller="Burger" class="btn btn-primary">Go Back</a>
+                      <a asp-action="GetBurgerOrder" asp-controller="Order" asp-route-id="@Model.Id" class="btn btn-primary">Order</a>
                 
          </div>
     </div>   
+    <h1 class="mt-5">Pair with some extra items:</h1>
+    <div class="extra-items">
+    @foreach (var item in ViewBag.ExtraItems)
+    {
+        <div class="card" style="width: 20rem;">
+           <div class="card-body shadow-lg bg-white rounded">
+               <img class="card-img-top" src="@item.Image">
+               <h1 class="card-title text-muted">@item.Name</h1>
+               <h6 class="card-text">Price: @item.Size.Price.ToString("C", CultureInfo.CreateSpecificCulture("mk-MK"))</h6>
+           </div>
+       </div>
+    }
+    </div>
+</div>
