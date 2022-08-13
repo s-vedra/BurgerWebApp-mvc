@@ -18,13 +18,6 @@ This prototype needs to have the following functions:
   * Edit an order
   * Delete an order
   * List all orders
-* Home
-  * Show the most popular burger ( The burger that has been ordered the most )
-  * Show how many orders have the app serviced so far
-  * Show an average price of an order
-  * List of all locations of the burger place
-  * Navigation to Burgers Menu, Orders and About Us page
-    * About Us page is just a page with some text about the burger place
 
 ## Business Domain Information
 
@@ -41,12 +34,8 @@ Users will not be part of the prototype at this moment. Here is some business do
   * Address
   * IsDelivered
   * Burgers
-  * Location ( String )
-
-## Bonus
-
-* Change location from string to model
-* Add locations section
+  * Location 
+* Location
   * List all locations of burger places
   * Add new location
   * Edit location
@@ -56,3 +45,18 @@ Users will not be part of the prototype at this moment. Here is some business do
   * Address
   * OpensAt
   * ClosesAt
+  
+ **Home Page 
+ ![image](https://user-images.githubusercontent.com/72023107/184478877-dd246a3f-9add-4f9f-ac56-38ef6d79a1db.png)
+ 
+ ** Menu Page
+ ![image](https://user-images.githubusercontent.com/72023107/184478894-408b5c59-aeed-4a91-8aa4-53fb94ad3c53.png)
+ 
+ **Details Page
+ ![image](https://user-images.githubusercontent.com/72023107/184478961-df674667-9bea-469b-a1ba-aa323cdfe2a4.png)
+ 
+ **Order Page
+ ![image](https://user-images.githubusercontent.com/72023107/184478978-22c92ffd-0590-4297-b586-577e74c140a5.png)
+ 
+ **Locations
+ ![image](https://user-images.githubusercontent.com/72023107/184478987-472c7bfb-9ded-4522-bc2c-1ddd87e278e4.png)
